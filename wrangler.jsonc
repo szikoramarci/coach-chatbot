@@ -5,7 +5,7 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "coach-chatbot",
-	"main": "src/index.ts",
+	"main": "src/server.ts",
 	"compatibility_date": "2025-08-30",
 	"observability": {
 		"enabled": true
@@ -16,19 +16,8 @@
 		{
 		"binding": "DB",
 		"database_name": "coach_bot_db",
-		"database_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+		"database_id": "xxxx-en-figyelek-rad-chatbot"
 		// "migrations_dir": "db/migrations" // ha migrációs lépésenként akarod kezelni
-		}
-	],
-
-	// --- KV (key-value) ---
-	"kv_namespaces": [
-		{
-		"binding": "KV",
-		// Csak lokálra:
-		"preview_id": "kv_namespace_dev",
-		// Prod/stagingre:
-		"id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 		}
 	],
 
