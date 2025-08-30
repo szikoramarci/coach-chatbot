@@ -3,11 +3,15 @@
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
-		"deploy": "wrangler deploy",
-		"dev": "wrangler dev",
-		"start": "wrangler dev",
-		"test": "vitest",
-		"cf-typegen": "wrangler types"
+		"dev": "wrangler dev --local",
+		"dev:remote": "wrangler dev --remote",
+		"deploy:staging": "wrangler deploy --env=staging",
+		"deploy:prod": "wrangler deploy --env=production",
+		"tail:staging": "wrangler tail --env=staging",
+		"tail:prod": "wrangler tail --env=production",
+		"d1:local:setup": "wrangler d1 execute coach_bot_db --local --file=./db/schema.sql",
+		"d1:staging:migrate": "wrangler d1 migrations apply coach_bot_db_staging --env=staging",
+		"d1:prod:migrate": "wrangler d1 migrations apply coach_bot_db_prod --env=production"
 	},
 	"devDependencies": {
 		"@cloudflare/vitest-pool-workers": "^0.8.19",
