@@ -4,6 +4,7 @@ import { isCrisis, crisisMsg, crisisButtons } from '../util/crisis';
 import { findUserByEmail, findUserByFrUid, upsertUser } from '../repositories/userRepo';
 import { getAllMessagesByUser, insertTurn } from '../repositories/conversationRepo';
 import { callOpenRouter } from '../services/openrouter';
+import SYSTEM_PROMPT from "../prompts/system-prompt.txt?raw";
 
 export async function postChat(req: Request, env: any) {
 	if (req.headers.get('x-bot-secret') !== env.BOT_SHARED_SECRET) return cors(json({ error: 'unauthorized' }, 401));
@@ -23,7 +24,6 @@ export async function postChat(req: Request, env: any) {
 	let userObj = null;
 	if (body.email) userObj = await findUserByEmail(env, body.email.toLowerCase())
   	if (!userObj && frUid) userObj = await findUserByFrUid(env, frUid)
-		console.log('User identified:', userObj);
 
 	const userId = userObj?.id || crypto.randomUUID()
 	await upsertUser(env, {
@@ -34,7 +34,7 @@ export async function postChat(req: Request, env: any) {
 	})
 
 	const oldMessages = await getAllMessagesByUser(env, userId)
-	const systemPrompt = `Empatikus, rövid, támogató asszisztens vagy. Nem diagnosztizálsz, nem adsz terápiát. Cél: megérteni az igényt és finoman időpontfoglalásra terelni. 3–5 mondat. 2 üzenetenként CTA. Krízis esetén sürgősségi.`;
+	const systemPrompt = SYSTEM_PROMPT
 	const userMessage = body.message.trim();
 	const promptMessages = [
 		{ role: "system", content: systemPrompt },

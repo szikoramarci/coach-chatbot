@@ -14,13 +14,11 @@
 	// Tipp: lokálban elég a database_name, prod/staginghez hozzáadod az id-t is (wrangler link/console -> D1 id)
 	"d1_databases": [
 		{
-		"binding": "DB",
-		"database_name": "coach_bot_db",
-		"database_id": "xxxx-en-figyelek-rad-chatbot"
-		// "migrations_dir": "db/migrations" // ha migrációs lépésenként akarod kezelni
+			"binding": "DB",
+			"database_name": "coach_bot_db",
+			"database_id": "62571795-15f6-49ca-80cd-1ba545244b7f"
 		}
 	],
-
 	// --- Durable Objects ---
 	"durable_objects": {
 		"bindings": [
@@ -30,18 +28,19 @@
 			}
 		]
 	},
-
 	"migrations": [
 		{
-		"tag": "v1",       
-		"new_classes": ["UserRoom"]
+			"tag": "v1",
+			"new_sqlite_classes": [
+				"UserRoom"
+			]
 		}
 	],
-
 	// --- Környezeti változók ---
 	"vars": {
-		"OPENROUTER_MODEL": "meta-llama/llama-3.1-8b-instruct:free",
-		"BOT_SHARED_SECRET": "change-me-in-secrets"
+		"OPENROUTER_MODEL": "google/gemini-2.5-flash-lite",
+		"OPENROUTER_API_KEY": "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",
+		"BOT_SHARED_SECRET": "mEFE7QuuxikjvCOUBvqIHeHWBSCM7Rxc"
 		// MEGJ: az API kulcsot NE itt tartsd; secrets-be tedd (wrangler secret put ...)
 	},
 }
